@@ -10,6 +10,7 @@ topics = [
     { 'id':3, 'title' : 'javascript', 'body' : 'javascript is ...' }
 ]
 
+# index page
 @app.route( '/' )
 def index():
     # return type should be String
