@@ -1,6 +1,7 @@
 from flask import Flask
 import random
 
+# create Flask object for server
 app = Flask( __name__ )
 
 
