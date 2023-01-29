@@ -11,37 +11,55 @@ topics = [
     { 'id':3, 'title' : 'javascript', 'body' : 'javascript is ...' }
 ]
 
-# index page
-@app.route( '/' )
-def index():
-    # return type should be String
-    liTags = ''
-    for topic in topics:
-        liTags = liTags + f'<li><a href = "/read/{topic["id"]}/">{topic["title"]}</a></li>'
-    return f'''
+
+def template( contents, content ):
+
+     return f'''
         <!doctype html>
         <html>
             <body>
                 <h1><a href = "/">WEB</a></p></h1>
                 <ol>
-                    {liTags}
+                    {contents}
                 </ol>
-                <h2>Welcome</h2>
-                Hello, Web
+                {content}
             </body>
         </html>
     '''
+
+def getContents():
+    liTags = ''
+    for topic in topics:
+        liTags = liTags + f'<li><a href = "/read/{topic["id"]}/">{topic["title"]}</a></li>'
+    return liTags
+
+# index page
+@app.route( '/' )
+def index():
+    # return type should be String
+    return template( getContents(), '<h2>Weclome</h2>Hello, Web' )
+
+
+# if you want to add a parameter in route
+# you have to add parameter in funtion as well
+@app.route( '/read/<int:id>/' )
+def read( id ):
+
+    title = ''
+    body = ''
+
+    for topic in topics:
+        if id == topic[ "id" ]:
+            title = topic[ 'title' ]
+            body = topic[ 'body' ]
+            break
+
+    return template( getContents(), f'<h2>{title}</h2>{body}' )
 
 @app.route( '/create' )
 def create():
     return 'Create'
 
-# if you want to add a parameter in route
-# you have to add parameter in funtion as well
-@app.route( '/read/<id>/' )
-def read( id ):
-    print( id )
-    return 'Read ' + id
 
 # stop server : Ctrl + c
 # debug = True : when you fix the code, it reflects to the server autometically
