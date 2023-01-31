@@ -1,6 +1,3 @@
-# Flask-Basic
-making basic board with flask
-
 <h1>Basic Flask</h1>
 <hr>
 <ul>
