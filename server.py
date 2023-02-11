@@ -23,6 +23,9 @@ def template( contents, content ):
                     {contents}
                 </ol>
                 {content}
+                <ul>
+                <li><a href = "/create/">create</a></li>
+                </ul>
             </body>
         </html>
     '''
@@ -56,9 +59,17 @@ def read( id ):
 
     return template( getContents(), f'<h2>{title}</h2>{body}' )
 
-@app.route( '/create' )
+@app.route( '/create/' )
 def create():
-    return 'Create'
+    content = \
+    '''
+        <form action = "/create/" method = "POST">
+            <p><input type = "text" name = "title" placeholder = "title"></p>
+            <p><textarea name = "body" placeholder = "body"></textarea></p>
+            <p><input type = "submit" value = "create"></p>
+        <form>
+    '''
+    return template( getContents(), content )
 
 
 # stop server : Ctrl + c
